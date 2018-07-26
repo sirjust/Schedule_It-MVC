@@ -1,0 +1,142 @@
+﻿@model IEnumerable<ScheduleUsers.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Add Employee", "Register")
+</p>
+<p>
+    <input class="form-control" id="indexSearch" type="text" onkeyup="searchFunction()" placeholder="Search" title="Search" />
+</p>
+<div class="col-sm-6 col-md-4 col-lg-3 scroll">
+    <table class="table">
+
+        @foreach (var item in Model)
+        {
+            <tr class="namebox" id="indexTable">
+                <td class="namebox">
+                    <a class="details-link" id="details-btn-@item.Id" onclick="loadDetails('@item.Id')">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class=" col-sm-6 col-md-8 col-lg-9 index-display-div" id="details-div">
+    Details for the selected employee will be displayed here
+</div>
+
+<!-- The Calendar Event Modal -->
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <div id="modalBody" class="modal-body"> </div>
+            <div id="modalNote" class="modal-body"> </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Calendar Event Modal -->
+
+<!-- This is the ajax call that brings up more details about the user from the details link -->
+<script>
+    function loadDetails(userId) {
+        jQuery.ajax({
+            'url': '@Url.Action("ViewUserDetails","User")',
+            'type': 'GET',
+            'data': {
+                id: userId
+            },
+            'success': function (data) {
+                document.getElementById("details-div").innerHTML = data;
+                showEventCalendar(userId);
+                showSchedule(userId);
+            },
+            'error': function (request, error) {
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+    };
+
+    function searchFunction() {
+        var input, filter, tr, td, a, i;
+        input = document.getElementById("indexSearch");
+        filter = input.value.toUpperCase();
+        tr = document.getElementById("indexTable")
+        td = document.getElementsByTagName("td");
+        for (i = 0; i < td.length; i++) {
+            a = td[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                td[i].style.display = "";
+            } else {
+                td[i].style.display = "none";
+            }
+        }
+    }
+
+    // this is the function to bring up a calendar for clockin/clockout events
+function showEventCalendar(userId) {
+    $('#calendar1').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        eventClick: function (event, jsEvent, view) {
+            $('#modalTitle').html(event.title);
+            $('#modalBody').html(event.description);
+            $('#eventUrl').attr('href', event.url);
+            $('#fullCalModal').modal();
+            return false;
+        },
+        events: '@Url.Action("getUserEvents", "Calendar", new { area= ""})' + '/' + userId,
+        defaultView: 'month',
+        editable: true,
+        allDaySlot: false,
+        selectable: true,
+        slotMinutes: 15,
+        displayEventEnd: true,
+        timezone: "local"
+    });
+};
+
+// this is the calendar function for the selected user's schedule
+function showSchedule(userId) {
+    $('#calendar2').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        eventClick: function (event, jsEvent, view) {
+            $('#modalTitle').html(event.title);
+            $('#modalBody').html(event.description);
+            $('#eventUrl').attr('href', event.url);
+            $('#fullCalModal').modal();
+            return false;
+        },
+        events: '@Url.Action("getUserSchedule", "Calendar", new { area= ""})' + '/' + userId,
+        defaultView: 'month',
+        editable: true,
+        allDaySlot: false,
+        selectable: true,
+        slotMinutes: 15,
+        displayEventEnd: true,
+        timezone: "local"
+    });
+};
+</script>
+
+
+
+

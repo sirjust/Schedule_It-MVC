@@ -1,0 +1,122 @@
+﻿@model ScheduleUsers.ViewModels.UserDetailsViewModel
+
+<div class="photo-container">
+    <div class="alignthis">
+        <div class="photo-placeholder">
+            <img class="img-responsive" src="~/Images/The-Tech-Academy-Logo.png" />
+        </div>
+        <div class="edit-delete">
+            @Html.ActionLink("Edit", "Edit", new { Id = Model.Id })
+            @Html.ActionLink("Delete", "Delete", new { Id = Model.Id })
+        </div>
+        <p>Status: @Html.DisplayFor(modelItem => Model.Status)</p>
+        <p>Next Scheduled: @Html.DisplayFor(modelItem => Model.NextScheduled)</p>
+        <p>Role: @Html.DisplayFor(modelItem => Model.CurrentRole)</p>
+    </div>
+</div>
+
+<div class="details-container">
+    <div class="tab-div">
+        <ul class="nav nav-tabs">
+            <li class="active view-details"><a data-toggle="tab" href="#admin-view-details">Details</a></li>
+            <li class="view-details"><a data-toggle="tab" onclick="showEventCalendar()" href="#admin-view-work-periods">Work Periods</a></li>
+            <li class="view-details"><a data-toggle="tab" onclick="showSchedule()" href="#admin-view-schedule">Schedule</a></li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div style="overflow: auto" id="admin-view-details" class="tab-pane fade in active">
+            <table class="table index-table">
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.FirstName)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.MiddleName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.MiddleName)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.LastName)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.Department)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.Department)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.Position)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.Position)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.Fulltime)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.Fulltime)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.HireDate)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.HireDate)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.EndDate)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.EndDate)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.LoginName)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.LoginName)</td>
+                </tr>
+            </table>
+            <table class="table index-table">
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.BirthDate)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.BirthDate)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.Gender)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.Gender)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.WorkEmail)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.WorkEmail)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.AlternateEmail)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.AlternateEmail)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.WorkPhone)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.WorkPhone)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.HomePhone)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.HomePhone)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.MobilePhone)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.MobilePhone)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.Address)</td>
+                </tr>
+                <tr>
+                    <td class="index-title">@Html.DisplayNameFor(model => model.HourlyPayRate)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.HourlyPayRate)</td>
+                </tr>
+            </table>
+        </div>
+        <div id="admin-view-work-periods" style="overflow: auto" class="tab-pane fade">
+            <table class="table"></table>
+            <div class="row">
+                <div id="smallCalendarContainer">
+                    <div id="calendar1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-view-schedule" style="overflow: auto" class="tab-pane fade">
+            <table class="table"></table>
+            <div id="smallCalendarContainer">
+                <div id="calendar2"></div>
+            </div>
+        </div>
+    </div>
+</div>
