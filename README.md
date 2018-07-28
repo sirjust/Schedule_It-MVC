@@ -1,0 +1,6 @@
+# TA_Live_Project
+I worked in a team on an ASP.NET MVC project that tracks employee records, schedules, pay, and enables logins and clock-ins. I worked on this Web Application primarily in C#, but also in JavaScript, CSS and HTML. The program required different functionality for users and administrators. We managed it according to Agile principles using the Scrum methodology and the Team Foundation Server; we began with a planning session and held standup meetings daily.
+
+My greatest contribution was creating the employee details index page from scratch. Adhering to user stories, I implemented partial views that would display all pertinent individual data such as name and position. I expanded this using Bootstrap tabs and AJAX calls to include such data points as the employee's work events, schedule, whether they were currently clocked in, and their next scheduled shift.
+
+I wrote LINQ queries and regular expressions to help with data validation on the Edit User page, and wrote a JavaScript function utilizing the jQuery library to display a modal when changes were made. I also made use of the FullCalendar library, and employed CSS to enhance the responsiveness of the site. Furthermore, I updated our code-first database to allow for data columns not previously considered, and incorporated them into the display.
